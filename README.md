@@ -1,14 +1,21 @@
-# Welcome to your CDK TypeScript project!
+# aws-chatbot-with-cdk
 
-This is a blank project for TypeScript development with CDK.
+以下の構成を AWS CDK で作成した。
+Lambda が CloudWatch Logs　に流した出力を MetricsFilter で検知し CloudWatch Alarm を駆動する、そのアラームアクションを SNS Topic に通知を送信し、SNS Topic に紐付いた AWS Chatbot が Slack のあるチャンネルに CloudWatch Alarm の内容を通知する。
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+## デプロイ
 
-## Useful commands
+以下の内容の cdk.context.json をプロジェクトルートに作成する
 
- * `npm run build`   compile typescript to js
- * `npm run watch`   watch for changes and compile
- * `npm run test`    perform the jest unit tests
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk synth`       emits the synthesized CloudFormation template
+```json
+{
+    "slackWorkspaceId": "*********",
+    "slackChannelId": "***********"
+}
+```
+
+以下のコマンドを実行する
+
+``` shellscript
+cdk deploy
+```
